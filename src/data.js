@@ -254,7 +254,7 @@ export const RACES = [
     style: 'very fast',
     trait: 'swift',
     recruitCost: 80,
-    colors: { primary: '#8d6a4a', secondary: '#c0392b', skin: '#c4a484', dark: '#2a1c14', ink: '#140e0c' },
+    colors: { primary: '#9e2a22', secondary: '#8fbf3a', skin: '#8a6a4a', dark: '#3a0e0c', ink: '#140e0c' },
     emblem: 'snout',
     base: { strength: 4, speed: 6, agility: 5, passing: 5 },
     positions: [

@@ -1047,7 +1047,8 @@ function drawMatch(ctx) {
   ctx.fillRect(0, 508, 800, 92);
   ctx.fillStyle = '#f4e6cf';
   ctx.font = '18px Courier New';
-  const prev = res.events[Math.max(0, res.events.indexOf(ev) - 1)];
+  const evIndex = res.events.indexOf(ev);
+  const prev = evIndex > 0 ? res.events[evIndex - 1] : null;
   if (prev) {
     ctx.fillStyle = '#8d7b66';
     ctx.fillText(prev.text.slice(0, 72), 16, 540);

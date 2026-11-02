@@ -273,7 +273,7 @@ export const RACES = [
     style: 'strong and quick',
     trait: 'scales',
     recruitCost: 75,
-    colors: { primary: '#1a9b8e', secondary: '#f0c14a', skin: '#2fbaa8', dark: '#0d3330', ink: '#081614' },
+    colors: { primary: '#8a3cff', secondary: '#2e2e34', skin: '#3a3a40', dark: '#1c1426', ink: '#0e0a14' },
     emblem: 'scale',
     base: { strength: 6, speed: 5, agility: 4, passing: 4 },
     positions: [

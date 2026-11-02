@@ -46,6 +46,7 @@ import {
 import { hashSeed, matchRuleText, pickLineup, simulateMatch } from './match.js';
 
 const PLAYER_H = ART.playerHeight;
+const PLAYER_SIZE_SCALE = { 'orc-brute': 1.25 };
 const PAINTED_RACES = new Set(['orcs', 'humans', 'elves', 'goblins', 'undead', 'halflings', 'dwarves', 'ratfolk', 'lizardfolk', 'darkelves', 'ogres', 'doomsworn']);
 const view = document.getElementById('view');
 const flashEl = document.getElementById('flash');
@@ -799,6 +800,9 @@ function drawPlayer(ctx, player, x, y, facing, pose, frame) {
   ctx.save();
   ctx.translate(px, py);
   ctx.scale(facing < 0 ? -1 : 1, 1);
+  // Big players (e.g. the Speed Freekz brute) are drawn larger, scaled from their feet.
+  const sizeScale = PLAYER_SIZE_SCALE[`${race.file}-${player.position}`] || 1;
+  if (sizeScale !== 1) ctx.scale(sizeScale, sizeScale);
   if (pose === 'down') {
     ctx.fillStyle = 'rgba(210, 184, 140, 0.55)';
     ctx.beginPath();

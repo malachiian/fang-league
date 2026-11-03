@@ -949,6 +949,27 @@ function startPlayback(res, meta) {
   raf = requestAnimationFrame(loop);
 }
 
+const SCOREBAR_BG = [12, 8, 6];
+function relLum(rgb) {
+  const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  return 0.2126 * f(rgb[0]) + 0.7152 * f(rgb[1]) + 0.0722 * f(rgb[2]);
+}
+function hexRgb(hex) {
+  const h = hex.replace('#', '');
+  const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function contrastOnBar(hex) {
+  const a = relLum(hexRgb(hex)), b = relLum(SCOREBAR_BG);
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+function scoreboardNameColor(colors) {
+  if (contrastOnBar(colors.secondary) >= 4.5) return colors.secondary;
+  if (contrastOnBar(colors.primary) >= 4.5) return colors.primary;
+  return '#fff8e8';
+}
+// END_SCOREBAR_HELPERS
+
 function drawMatch(ctx) {
   const pb = ui.playback;
   const res = pb.res;
@@ -1028,10 +1049,10 @@ function drawMatch(ctx) {
   ctx.fillRect(16, 10, 768, 42);
   ctx.font = '16px Courier New';
   ctx.textAlign = 'left';
-  ctx.fillStyle = raceById(home.race).colors.secondary;
+  ctx.fillStyle = scoreboardNameColor(raceById(home.race).colors);
   ctx.fillText(home.short, 28, 36);
   ctx.textAlign = 'right';
-  ctx.fillStyle = raceById(away.race).colors.secondary;
+  ctx.fillStyle = scoreboardNameColor(raceById(away.race).colors);
   ctx.fillText(away.short, 772, 36);
   ctx.textAlign = 'center';
   ctx.fillStyle = '#fff8e8';
